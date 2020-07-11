@@ -3,7 +3,7 @@
  * @description common
  */
 import * as soap from 'soap';
-import fs from 'fs';
+import safeStringify from 'fast-safe-stringify';
 import { authorization } from 'heat-sfdx-common';
 
 const UTF8 = 'utf8';
@@ -105,9 +105,7 @@ async function specificationMetadata(params: authorization) {
   const metadataWsdl = params.options.wsdl.metadata;
   const metadataClient = await soap.createClientAsync(metadataWsdl);
   const metadataMethod = metadataClient.describe();
-  const result: string = JSON.stringify(
-    metadataMethod.MetadataService.Metadata
-  );
+  const result: string = safeStringify(metadataMethod.MetadataService.Metadata);
   return result;
 }
 
