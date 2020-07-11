@@ -37,14 +37,6 @@ const _extractMetadataTypes = (params: any) => {
  * @description extract metadataTypes from metadataObjects.
  */
 const extractMetadataTypes = (params: any) => {
-  // extractMetadataTypes (in folder)
-  _extractMetadataTypes({
-    metadataObjects: params.metadataObjects,
-    output: params.config.metadataTypesInFolder,
-    inFolder: true,
-    folder: false
-  });
-
   // extractMetadataTypes (no folder)
   _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
@@ -57,8 +49,16 @@ const extractMetadataTypes = (params: any) => {
   _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
     output: params.config.metadataTypesFolder,
-    inFolder: false,
+    inFolder: true,
     folder: true
+  });
+
+  // extractMetadataTypes (in folder)
+  _extractMetadataTypes({
+    metadataObjects: params.metadataObjects,
+    output: params.config.metadataTypesInFolder,
+    inFolder: true,
+    folder: false
   });
 };
 
