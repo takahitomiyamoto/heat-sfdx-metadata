@@ -31,12 +31,7 @@ const _getArgs = (config: any) => {
  * @description renames a metadata component in your organization synchronously.
  */
 async function renameMetadata(authorization: authorization, config: any) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { renameMetadata };

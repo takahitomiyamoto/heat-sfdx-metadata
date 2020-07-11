@@ -47,12 +47,7 @@ const _getArgs = (config: any) => {
  * @description retrieves XML file representations of components in an organization.
  */
 async function retrieve(authorization: authorization, config: any) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { retrieve };

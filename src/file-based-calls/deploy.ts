@@ -41,12 +41,7 @@ const _getArgs = (config: any) => {
  * @description uses file representations of components to create, update, or delete those components in a Salesforce org.
  */
 async function deploy(authorization: authorization, config: any) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { deploy };

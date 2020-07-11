@@ -29,12 +29,7 @@ const _getArgs = (config: any) => {
  * @description cancels a deployment that hasn’t completed yet.
  */
 async function cancelDeploy(authorization: authorization, config: any) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { cancelDeploy };

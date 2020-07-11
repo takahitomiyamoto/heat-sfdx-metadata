@@ -29,12 +29,7 @@ const _getArgs = (config: any) => {
  * @description adds one or more new metadata components to your organization synchronously.
  */
 async function createMetadata(authorization: authorization, config: any) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { createMetadata };

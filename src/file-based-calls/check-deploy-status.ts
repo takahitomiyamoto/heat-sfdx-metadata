@@ -30,12 +30,7 @@ const _getArgs = (config: any) => {
  * @description checks the status of declarative metadata call deploy().
  */
 async function checkDeployStatus(authorization: authorization, config: any) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { checkDeployStatus };

@@ -30,12 +30,7 @@ const _getArgs = (config: any) => {
  * @description deletes one or more metadata components from your organization synchronously.
  */
 async function deleteMetadata(authorization: authorization, config: any) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { deleteMetadata };

@@ -32,12 +32,7 @@ async function deployRecentValidation(
   authorization: authorization,
   config: any
 ) {
-  return await callFunction({
-    authorization: authorization,
-    config: config,
-    _getMethod: _getMethod,
-    _getArgs: _getArgs
-  });
+  return await callFunction(authorization, config, _getMethod, _getArgs);
 }
 
 export { deployRecentValidation };

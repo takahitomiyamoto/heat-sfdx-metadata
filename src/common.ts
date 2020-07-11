@@ -87,12 +87,14 @@ const invoke = (method: any, args: any) => {
  * @name callFunction
  * @description call a function
  */
-async function callFunction(params: any) {
-  const client = await createClient(params.authorization);
-  const result: any = await invoke(
-    params._getMethod(client),
-    params._getArgs(params.config)
-  );
+async function callFunction(
+  authorization: authorization,
+  config: any,
+  _getMethod: any,
+  _getArgs: any
+) {
+  const client = await createClient(authorization);
+  const result: any = await invoke(_getMethod(client), _getArgs(config));
   return JSON.stringify(result);
 }
 
