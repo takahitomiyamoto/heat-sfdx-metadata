@@ -34,10 +34,10 @@ const METADATA_FOLDER2TYPE_MAP: any = {
  * @name _getSessionHeader
  * @description get session header
  */
-const _getSessionHeader = (params: authorization) => {
+const _getSessionHeader = (authorization: authorization) => {
   return {
     SessionHeader: {
-      sessionId: params.accessToken
+      sessionId: authorization.accessToken
     }
   };
 };
@@ -46,16 +46,16 @@ const _getSessionHeader = (params: authorization) => {
  * @name createClient
  * @description create client
  */
-async function createClient(params: authorization) {
-  const metadataWsdl = params.options.wsdl.metadata;
+async function createClient(authorization: authorization) {
+  const metadataWsdl = authorization.options.wsdl.metadata;
   let client = await soap.createClientAsync(metadataWsdl);
   client.addSoapHeader(
-    _getSessionHeader(params),
+    _getSessionHeader(authorization),
     '',
     'tns',
     'http://soap.sforce.com/2006/04/metadata'
   );
-  client.setEndpoint(params.instanceUrl);
+  client.setEndpoint(authorization.instanceUrl);
   return client;
 }
 
@@ -82,6 +82,19 @@ const invoke = (method: any, args: any) => {
     );
   });
 };
+
+/**
+ * @name callFunction
+ * @description call a function
+ */
+async function callFunction(params: any) {
+  const client = await createClient(params.authorization);
+  const result: any = await invoke(
+    params._getMethod(client),
+    params._getArgs(params.config)
+  );
+  return JSON.stringify(result);
+}
 
 /**
  * @name methodsMetadata
@@ -115,6 +128,7 @@ export {
   METADATA_FOLDER2TYPE_MAP,
   createClient,
   invoke,
+  callFunction,
   methodsMetadata,
   specificationMetadata
 };
