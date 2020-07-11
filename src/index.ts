@@ -26,7 +26,8 @@ import {
 import {
   METADATA_TYPE2FOLDER_MAP,
   METADATA_FOLDER2TYPE_MAP,
-  methodsMetadata
+  methodsMetadata,
+  specificationMetadata
 } from './common';
 import { buildManifest } from './custom-calls';
 
@@ -49,5 +50,6 @@ export {
   listMetadata,
   METADATA_TYPE2FOLDER_MAP,
   METADATA_FOLDER2TYPE_MAP,
-  methodsMetadata
+  methodsMetadata,
+  specificationMetadata
 };
