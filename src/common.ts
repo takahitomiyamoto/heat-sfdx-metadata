@@ -97,11 +97,26 @@ async function methodsMetadata(params: authorization) {
   return result;
 }
 
+/**
+ * @name specificationMetadata
+ * @description specification of Metadata WSDL
+ */
+async function specificationMetadata(params: authorization) {
+  const metadataWsdl = params.options.wsdl.metadata;
+  const metadataClient = await soap.createClientAsync(metadataWsdl);
+  const metadataMethod = metadataClient.describe();
+  const result: string = JSON.stringify(
+    metadataMethod.MetadataService.Metadata
+  );
+  return result;
+}
+
 export {
   UTF8,
   METADATA_TYPE2FOLDER_MAP,
   METADATA_FOLDER2TYPE_MAP,
   createClient,
   invoke,
-  methodsMetadata
+  methodsMetadata,
+  specificationMetadata
 };
