@@ -2,7 +2,11 @@
  * @name call-list-metadata.ts
  * @description callListMetadata
  */
-import { readFileSyncUtf8, writeFileSyncUtf8 } from 'heat-sfdx-common';
+import {
+  authorization,
+  readFileSyncUtf8,
+  writeFileSyncUtf8
+} from 'heat-sfdx-common';
 import { listMetadata } from '../../utility-calls';
 import { METADATA_TYPE2FOLDER_MAP } from '../../common';
 
@@ -16,6 +20,15 @@ const _getMetadataTypeMembers = (path: string) => {
   members.sort();
 
   return members;
+};
+
+/**
+ * @name _getOutput
+ */
+const _getOutput = (folder: any, prefix: string, metadataType: string) => {
+  return folder
+    ? `${prefix}.${metadataType}.${folder}.json`
+    : `${prefix}.${metadataType}.json`;
 };
 
 /**
@@ -38,10 +51,11 @@ const _storeMetadataTypeMembers = (params: any) => {
     name: name
   };
 
-  const output = params.folder
-    ? `${params.config.prefix.metadataTypeMembers}.${params.metadataType}.${params.folder}.json`
-    : `${params.config.prefix.metadataTypeMembers}.${params.metadataType}.json`;
-
+  const output = _getOutput(
+    params.folder,
+    params.config.prefix.metadataTypeMembers,
+    params.metadataType
+  );
   writeFileSyncUtf8(output, JSON.stringify(metadataTypeMembers));
   console.log(output);
 };
@@ -64,9 +78,11 @@ async function _listMetadata(params: any) {
       : params.metadataType;
     console.log(`----- NO DATA: ${noDataMetadataType}`);
   } else {
-    const output = params.folder
-      ? `${params.config.prefix.listMetadata}.${params.metadataType}.${params.folder}.json`
-      : `${params.config.prefix.listMetadata}.${params.metadataType}.json`;
+    const output = _getOutput(
+      params.folder,
+      params.config.prefix.listMetadata,
+      params.metadataType
+    );
 
     writeFileSyncUtf8(output, listMetadataResult);
     console.log(output);
@@ -83,22 +99,27 @@ async function _listMetadata(params: any) {
 /**
  * @name _repeatListMetadata
  */
-async function _repeatListMetadata(params: any) {
-  const metadataTypesString = readFileSyncUtf8(params.input);
+async function _repeatListMetadata(
+  authorization: authorization,
+  config: any,
+  input: string,
+  inFolder: boolean
+) {
+  const metadataTypesString = readFileSyncUtf8(input);
   const metadataTypes = JSON.parse(metadataTypesString);
   for await (let metadataType of metadataTypes) {
     let folders = [];
-    if (params.inFolder) {
+    if (inFolder) {
       folders = _getMetadataTypeMembers(
-        `${params.config.prefix.metadataTypeMembers}.${METADATA_TYPE2FOLDER_MAP[metadataType]}.json`
+        `${config.prefix.metadataTypeMembers}.${METADATA_TYPE2FOLDER_MAP[metadataType]}.json`
       );
     } else {
       folders.push('');
     }
     for await (let folder of folders) {
       await _listMetadata({
-        authorization: params.authorization,
-        config: params.config,
+        authorization: authorization,
+        config: config,
         metadataType: metadataType,
         folder: folder
       });
@@ -112,28 +133,28 @@ async function _repeatListMetadata(params: any) {
  */
 async function callListMetadata(params: any) {
   // listMetadata (no folder)
-  await _repeatListMetadata({
-    authorization: params.authorization,
-    config: params.config,
-    input: params.config.metadataTypesNoFolder,
-    inFolder: false
-  });
+  await _repeatListMetadata(
+    params.authorization,
+    params.config,
+    params.config.metadataTypesNoFolder,
+    false
+  );
 
   // listMetadata (folder)
-  await _repeatListMetadata({
-    authorization: params.authorization,
-    config: params.config,
-    input: params.config.metadataTypesFolder,
-    inFolder: false
-  });
+  await _repeatListMetadata(
+    params.authorization,
+    params.config,
+    params.config.metadataTypesFolder,
+    false
+  );
 
   // listMetadata (in folder)
-  await _repeatListMetadata({
-    authorization: params.authorization,
-    config: params.config,
-    input: params.config.metadataTypesInFolder,
-    inFolder: true
-  });
+  await _repeatListMetadata(
+    params.authorization,
+    params.config,
+    params.config.metadataTypesInFolder,
+    true
+  );
 }
 
 export { callListMetadata };
