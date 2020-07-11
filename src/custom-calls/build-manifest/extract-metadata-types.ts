@@ -6,51 +6,30 @@ import { writeFileSyncUtf8 } from 'heat-sfdx-common';
 import { METADATA_TYPE2FOLDER_MAP } from '../../common';
 
 /**
- * @name _extractMetadataTypesNoFolder
+ * @name _getXmlName
  */
-const _extractMetadataTypesNoFolder = (params: any) => {
-  const objects = params.metadataObjects;
-  const objectsNoFolder = objects.filter(
-    (object: any) => false === object.inFolder
-  );
-  const metadataTypesNoFolder = objectsNoFolder.map(
-    (object: any) => object.xmlName
-  );
-  metadataTypesNoFolder.sort();
-
-  writeFileSyncUtf8(params.output, JSON.stringify(metadataTypesNoFolder));
+const _getXmlName = (object: any, folder: boolean) => {
+  if (folder) {
+    return METADATA_TYPE2FOLDER_MAP[object.xmlName];
+  } else {
+    return object.xmlName;
+  }
 };
 
 /**
- * @name _extractMetadataTypesInFolder
+ * @name _extractMetadataTypes
  */
-const _extractMetadataTypesInFolder = (params: any) => {
+const _extractMetadataTypes = (params: any) => {
   const objects = params.metadataObjects;
-  const objectsInFolder = objects.filter(
-    (object: any) => true === object.inFolder
+  const metadataTypesObj = objects.filter(
+    (object: any) => params.inFolder === object.inFolder
   );
-  const metadataTypesInFolder = objectsInFolder.map(
-    (object: any) => object.xmlName
+  const metadataTypes = metadataTypesObj.map((object: any) =>
+    _getXmlName(object, params.folder)
   );
-  metadataTypesInFolder.sort();
+  metadataTypes.sort();
 
-  writeFileSyncUtf8(params.output, JSON.stringify(metadataTypesInFolder));
-};
-
-/**
- * @name _extractMetadataTypesFolder
- */
-const _extractMetadataTypesFolder = (params: any) => {
-  const objects = params.metadataObjects;
-  const objectsInFolder = objects.filter(
-    (object: any) => true === object.inFolder
-  );
-  const metadataTypesFolder = objectsInFolder.map(
-    (object: any) => METADATA_TYPE2FOLDER_MAP[object.xmlName]
-  );
-  metadataTypesFolder.sort();
-
-  writeFileSyncUtf8(params.output, JSON.stringify(metadataTypesFolder));
+  writeFileSyncUtf8(params.output, JSON.stringify(metadataTypes));
 };
 
 /**
@@ -68,17 +47,28 @@ const extractMetadataTypes = (params: any) => {
     );
   }
 
-  _extractMetadataTypesNoFolder({
+  // no folder
+  _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
-    output: params.config.metadataTypesNoFolder
+    output: params.config.metadataTypesNoFolder,
+    inFolder: false,
+    folder: false
   });
-  _extractMetadataTypesInFolder({
+
+  // folder
+  _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
-    output: params.config.metadataTypesInFolder
+    output: params.config.metadataTypesFolder,
+    inFolder: false,
+    folder: true
   });
-  _extractMetadataTypesFolder({
+
+  // in folder
+  _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
-    output: params.config.metadataTypesFolder
+    output: params.config.metadataTypesInFolder,
+    inFolder: true,
+    folder: false
   });
 };
 
