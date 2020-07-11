@@ -4,7 +4,7 @@
  */
 import * as soap from 'soap';
 import { authorization } from 'heat-sfdx-common';
-import { invoke, createClient } from '../common';
+import { callFunction } from '../common';
 
 /**
  * @name listMetadataQuery
@@ -62,9 +62,12 @@ const _getArgs = (config: any) => {
  * @description retrieves property information about metadata components in your organization.
  */
 async function listMetadata(authorization: authorization, config: any) {
-  const client = await createClient(authorization);
-  const result: any = await invoke(_getMethod(client), _getArgs(config));
-  return JSON.stringify(result);
+  return await callFunction({
+    authorization: authorization,
+    config: config,
+    _getMethod: _getMethod,
+    _getArgs: _getArgs
+  });
 }
 
 export { listMetadata };

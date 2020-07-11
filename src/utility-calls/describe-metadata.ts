@@ -29,9 +29,6 @@ const _getArgs = (config: any) => {
  * @description retrieves the metadata that describes your organization.
  */
 async function describeMetadata(authorization: authorization, config: any) {
-  // const client = await createClient(authorization);
-  // const result: any = await invoke(_getMethod(client), _getArgs(config));
-  // return JSON.stringify(result);
   return await callFunction({
     authorization: authorization,
     config: config,

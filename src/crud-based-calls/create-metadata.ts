@@ -29,9 +29,6 @@ const _getArgs = (config: any) => {
  * @description adds one or more new metadata components to your organization synchronously.
  */
 async function createMetadata(authorization: authorization, config: any) {
-  // const client = await createClient(authorization);
-  // const result: any = await invoke(_getMethod(client), _getArgs(config));
-  // return JSON.stringify(result);
   return await callFunction({
     authorization: authorization,
     config: config,

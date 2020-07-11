@@ -4,7 +4,7 @@
  */
 import * as soap from 'soap';
 import { authorization } from 'heat-sfdx-common';
-import { invoke, createClient } from '../common';
+import { callFunction } from '../common';
 
 /**
  * @name _getMethod
@@ -31,9 +31,12 @@ const _getArgs = (config: any) => {
  * @description renames a metadata component in your organization synchronously.
  */
 async function renameMetadata(authorization: authorization, config: any) {
-  const client = await createClient(authorization);
-  const result: any = await invoke(_getMethod(client), _getArgs(config));
-  return JSON.stringify(result);
+  return await callFunction({
+    authorization: authorization,
+    config: config,
+    _getMethod: _getMethod,
+    _getArgs: _getArgs
+  });
 }
 
 export { renameMetadata };
