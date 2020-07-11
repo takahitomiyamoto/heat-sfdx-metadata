@@ -14,16 +14,8 @@ import { createManifestFile } from './build-manifest/create-manifest-file';
  */
 async function buildManifest(authorization: authorization, config: any) {
   const metadataObjects = await getMetadataObjects(authorization, config);
-
-  extractMetadataTypes({
-    metadataObjects: metadataObjects,
-    config: config
-  });
-
-  await callListMetadata({
-    authorization: authorization,
-    config: config
-  });
+  extractMetadataTypes(metadataObjects, config);
+  await callListMetadata(authorization, config);
 
   return createManifestFile(config);
 }

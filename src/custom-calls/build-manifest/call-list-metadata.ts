@@ -25,7 +25,7 @@ const _getMetadataTypeMembers = (path: string) => {
 /**
  * @name _getOutput
  */
-const _getOutput = (folder: any, prefix: string, metadataType: string) => {
+const _getOutput = (folder: string, prefix: string, metadataType: string) => {
   return folder
     ? `${prefix}.${metadataType}.${folder}.json`
     : `${prefix}.${metadataType}.json`;
@@ -34,8 +34,13 @@ const _getOutput = (folder: any, prefix: string, metadataType: string) => {
 /**
  * @name _storeMetadataTypeMembers
  */
-const _storeMetadataTypeMembers = (params: any) => {
-  const listMetadataString = readFileSyncUtf8(params.input);
+const _storeMetadataTypeMembers = (
+  config: any,
+  path: string,
+  metadataType: string,
+  folder: string
+) => {
+  const listMetadataString = readFileSyncUtf8(path);
   const listMetadataObj = JSON.parse(listMetadataString);
 
   const fullNames = listMetadataObj.result.map(
@@ -44,7 +49,7 @@ const _storeMetadataTypeMembers = (params: any) => {
   fullNames.sort();
 
   const name = [];
-  name.push(params.metadataType);
+  name.push(metadataType);
 
   const metadataTypeMembers = {
     members: fullNames,
@@ -52,9 +57,9 @@ const _storeMetadataTypeMembers = (params: any) => {
   };
 
   const output = _getOutput(
-    params.folder,
-    params.config.prefix.metadataTypeMembers,
-    params.metadataType
+    folder,
+    config.prefix.metadataTypeMembers,
+    metadataType
   );
   writeFileSyncUtf8(output, JSON.stringify(metadataTypeMembers));
   console.log(output);
@@ -63,36 +68,31 @@ const _storeMetadataTypeMembers = (params: any) => {
 /**
  * @name _listMetadata
  */
-async function _listMetadata(params: any) {
-  const authorization = params.authorization;
+async function _listMetadata(
+  authorization: authorization,
+  config: any,
+  metadataType: string,
+  folder: string
+) {
   const _config = {
-    metadataType: params.metadataType,
-    folder: params.folder,
-    asOfVersion: authorization.options.asOfVersion
+    metadataType: metadataType,
+    folder: folder,
+    asOfVersion: config.asOfVersion
   };
   const listMetadataResult = await listMetadata(authorization, _config);
 
   if (null === JSON.parse(listMetadataResult)) {
-    const noDataMetadataType = params.folder
-      ? `${params.metadataType} - ${params.folder}`
-      : params.metadataType;
+    const noDataMetadataType = folder
+      ? `${metadataType} - ${folder}`
+      : metadataType;
     console.log(`----- NO DATA: ${noDataMetadataType}`);
   } else {
-    const output = _getOutput(
-      params.folder,
-      params.config.prefix.listMetadata,
-      params.metadataType
-    );
+    const output = _getOutput(folder, config.prefix.listMetadata, metadataType);
 
     writeFileSyncUtf8(output, listMetadataResult);
     console.log(output);
 
-    _storeMetadataTypeMembers({
-      config: params.config,
-      input: output,
-      metadataType: params.metadataType,
-      folder: params.folder
-    });
+    _storeMetadataTypeMembers(config, output, metadataType, folder);
   }
 }
 
@@ -106,9 +106,9 @@ async function _repeatListMetadata(
   inFolder: boolean
 ) {
   const metadataTypesString = readFileSyncUtf8(input);
-  const metadataTypes = JSON.parse(metadataTypesString);
+  const metadataTypes: string[] = JSON.parse(metadataTypesString);
   for await (let metadataType of metadataTypes) {
-    let folders = [];
+    let folders: string[] = [];
     if (inFolder) {
       folders = _getMetadataTypeMembers(
         `${config.prefix.metadataTypeMembers}.${METADATA_TYPE2FOLDER_MAP[metadataType]}.json`
@@ -117,12 +117,7 @@ async function _repeatListMetadata(
       folders.push('');
     }
     for await (let folder of folders) {
-      await _listMetadata({
-        authorization: authorization,
-        config: config,
-        metadataType: metadataType,
-        folder: folder
-      });
+      await _listMetadata(authorization, config, metadataType, folder);
     }
   }
 }
@@ -131,28 +126,28 @@ async function _repeatListMetadata(
  * @name callListMetadata
  * @description call listMetadata() and xxx
  */
-async function callListMetadata(params: any) {
+async function callListMetadata(authorization: authorization, config: any) {
   // listMetadata (no folder)
   await _repeatListMetadata(
-    params.authorization,
-    params.config,
-    params.config.metadataTypesNoFolder,
+    authorization,
+    config,
+    config.metadataTypesNoFolder,
     false
   );
 
   // listMetadata (folder)
   await _repeatListMetadata(
-    params.authorization,
-    params.config,
-    params.config.metadataTypesFolder,
+    authorization,
+    config,
+    config.metadataTypesFolder,
     false
   );
 
   // listMetadata (in folder)
   await _repeatListMetadata(
-    params.authorization,
-    params.config,
-    params.config.metadataTypesInFolder,
+    authorization,
+    config,
+    config.metadataTypesInFolder,
     true
   );
 }

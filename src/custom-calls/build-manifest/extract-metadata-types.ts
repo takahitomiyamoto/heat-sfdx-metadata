@@ -19,47 +19,52 @@ const _getXmlName = (object: any, folder: boolean) => {
 /**
  * @name _extractMetadataTypes
  */
-const _extractMetadataTypes = (params: any) => {
-  const objects = params.metadataObjects;
+const _extractMetadataTypes = (
+  metadataObjects: any,
+  path: string,
+  inFolder: boolean,
+  folder: boolean
+) => {
+  const objects = metadataObjects;
   const metadataTypesObj = objects.filter(
-    (object: any) => params.inFolder === object.inFolder
+    (object: any) => inFolder === object.inFolder
   );
   const metadataTypes = metadataTypesObj.map((object: any) =>
-    _getXmlName(object, params.folder)
+    _getXmlName(object, folder)
   );
   metadataTypes.sort();
 
-  writeFileSyncUtf8(params.output, JSON.stringify(metadataTypes));
+  writeFileSyncUtf8(path, JSON.stringify(metadataTypes));
 };
 
 /**
  * @name extractMetadataTypes
  * @description extract metadataTypes from metadataObjects.
  */
-const extractMetadataTypes = (params: any) => {
+const extractMetadataTypes = (metadataObjects: any, config: any) => {
   // extractMetadataTypes (no folder)
-  _extractMetadataTypes({
-    metadataObjects: params.metadataObjects,
-    output: params.config.metadataTypesNoFolder,
-    inFolder: false,
-    folder: false
-  });
+  _extractMetadataTypes(
+    metadataObjects,
+    config.metadataTypesNoFolder,
+    false,
+    false
+  );
 
   // extractMetadataTypes (folder)
-  _extractMetadataTypes({
-    metadataObjects: params.metadataObjects,
-    output: params.config.metadataTypesFolder,
-    inFolder: true,
-    folder: true
-  });
+  _extractMetadataTypes(
+    metadataObjects,
+    config.metadataTypesFolder,
+    true,
+    true
+  );
 
   // extractMetadataTypes (in folder)
-  _extractMetadataTypes({
-    metadataObjects: params.metadataObjects,
-    output: params.config.metadataTypesInFolder,
-    inFolder: true,
-    folder: false
-  });
+  _extractMetadataTypes(
+    metadataObjects,
+    config.metadataTypesInFolder,
+    true,
+    false
+  );
 };
 
 export { extractMetadataTypes };

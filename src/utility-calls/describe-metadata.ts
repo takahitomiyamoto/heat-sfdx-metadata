@@ -20,7 +20,7 @@ const _getMethod = (client: soap.Client) => {
  */
 const _getArgs = (config: any) => {
   return {
-    asOfVersion: config.apiVersion
+    asOfVersion: config.asOfVersion
   };
 };
 

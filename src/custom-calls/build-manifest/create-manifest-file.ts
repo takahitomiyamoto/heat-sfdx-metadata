@@ -26,16 +26,18 @@ const _getMetadataTypeMemberFileNames = (config: any) => {
 /**
  * @name _storeMetadataTypes
  */
-const _storeMetadataTypes = (params: any) => {
+const _storeMetadataTypes = (
+  config: any,
+  memberFileNames: string[],
+  folderNames: string[]
+): string[] => {
   let types: any[] = [];
-  for (let fileName of params.memberFileNames) {
-    const jsonString: any = readFileSyncUtf8(
-      `${params.config.root}/${fileName}`
-    );
+  for (let fileName of memberFileNames) {
+    const jsonString: any = readFileSyncUtf8(`${config.root}/${fileName}`);
     const nameRaw = JSON.parse(jsonString).name;
     const membersRaw = JSON.parse(jsonString).members;
 
-    const metadataTypeName = !params.folderNames.includes(nameRaw[0])
+    const metadataTypeName = !folderNames.includes(nameRaw[0])
       ? nameRaw[0]
       : METADATA_FOLDER2TYPE_MAP[nameRaw[0]];
 
@@ -72,7 +74,7 @@ const _storeMetadataTypes = (params: any) => {
  */
 const _createManifestJson = (config: any, types: any[]) => {
   const version = [];
-  version.push(config.apiVersion);
+  version.push(config.asOfVersion);
 
   return {
     Package: {
@@ -91,11 +93,11 @@ const _createManifestJson = (config: any, types: any[]) => {
  */
 const createManifestFile = (config: any) => {
   const folderNamesString = readFileSyncUtf8(config.metadataTypesFolder);
-  const types = _storeMetadataTypes({
-    config: config,
-    memberFileNames: _getMetadataTypeMemberFileNames(config),
-    folderNames: JSON.parse(folderNamesString)
-  });
+  const types = _storeMetadataTypes(
+    config,
+    _getMetadataTypeMemberFileNames(config),
+    JSON.parse(folderNamesString)
+  );
   const manifestJson = _createManifestJson(config, types);
 
   return json2xml(manifestJson);

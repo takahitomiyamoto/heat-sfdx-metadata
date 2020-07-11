@@ -21,7 +21,7 @@ const _getMethod = (client: soap.Client) => {
 const _getArgs = (config: any) => {
   return {
     retrieveRequest: {
-      apiVersion: config.apiVersion,
+      apiVersion: config.asOfVersion,
       packageNames: config.packageNames,
       singlePackage: config.singlePackage,
       specificFiles: config.specificFiles,

@@ -1,6 +1,6 @@
 /**
- * @name describe-metadata.ts
- * @description describeMetadata
+ * @name cancel-deploy.ts
+ * @description cancelDeploy
  */
 import * as soap from 'soap';
 import { authorization } from 'heat-sfdx-common';
