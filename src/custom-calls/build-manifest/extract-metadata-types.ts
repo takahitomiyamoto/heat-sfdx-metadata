@@ -37,17 +37,7 @@ const _extractMetadataTypes = (params: any) => {
  * @description extract metadataTypes from metadataObjects.
  */
 const extractMetadataTypes = (params: any) => {
-  if (
-    !params.config.metadataTypesNoFolder ||
-    !params.config.metadataTypesInFolder ||
-    !params.config.metadataTypesFolder
-  ) {
-    console.error(
-      'If you will call buildManifest(authorization, config), please add the parameter in config: metadataTypesNoFolder, metadataTypesInFolder, metadataTypesFolder'
-    );
-  }
-
-  // MetadataTypes (no folder)
+  // extractMetadataTypes (no folder)
   _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
     output: params.config.metadataTypesNoFolder,
@@ -55,7 +45,7 @@ const extractMetadataTypes = (params: any) => {
     folder: false
   });
 
-  // MetadataTypes (folder)
+  // extractMetadataTypes (folder)
   _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
     output: params.config.metadataTypesFolder,
@@ -63,7 +53,7 @@ const extractMetadataTypes = (params: any) => {
     folder: true
   });
 
-  // MetadataTypes (in folder)
+  // extractMetadataTypes (in folder)
   _extractMetadataTypes({
     metadataObjects: params.metadataObjects,
     output: params.config.metadataTypesInFolder,
