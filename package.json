@@ -1,6 +1,6 @@
 {
   "name": "heat-sfdx-metadata",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "license": "MIT",
   "author": "takahitomiyamoto",
   "keywords": [
@@ -29,10 +29,10 @@
   },
   "dependencies": {
     "@types/bluebird": "3.5.32",
-    "@types/node": "14.0.22",
+    "@types/node": "14.0.23",
     "fast-safe-stringify": "2.0.7",
     "heat-sfdx-common": "0.1.11",
-    "soap": "0.31.0",
-    "typescript": "3.9.6"
+    "soap": "0.32.0",
+    "typescript": "3.9.7"
   }
 }

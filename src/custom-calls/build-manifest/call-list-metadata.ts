@@ -14,12 +14,16 @@ import { METADATA_TYPE2FOLDER_MAP } from '../../common';
  * @name _getMetadataTypeMembers
  */
 const _getMetadataTypeMembers = (path: string) => {
-  const resultString = readFileSyncUtf8(path);
-  const result = JSON.parse(resultString);
-  const members = result.members;
-  members.sort();
-
-  return members;
+  try {
+    const resultString = readFileSyncUtf8(path);
+    const result = JSON.parse(resultString);
+    const members = result.members;
+    members.sort();
+    return members;
+  } catch (err) {
+    console.log(`----- NO FILE: ${path}`);
+    return [''];
+  }
 };
 
 /**
