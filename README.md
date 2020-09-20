@@ -8,6 +8,8 @@
 
 This package is responsible for the Metadata API features of the heat-sfdx series.
 
+- [Documentation](https://takahitomiyamoto.github.io/heat-sfdx-metadata/index.html)
+
 ## heat-sfdx series
 
 | category     | package                                                                      |
