@@ -1,6 +1,6 @@
 {
   "name": "heat-sfdx-metadata",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "license": "MIT",
   "author": "takahitomiyamoto",
   "keywords": [
@@ -27,16 +27,17 @@
   },
   "devDependencies": {
     "gh-pages": "3.1.0",
-    "prettier": "2.0.5",
+    "prettier": "2.1.2",
     "typedoc": "0.19.1"
   },
   "dependencies": {
     "@types/bluebird": "3.5.32",
-    "@types/node": "14.0.23",
+    "@types/node": "14.11.1",
     "@types/request": "2.48.5",
+    "@types/sax": "1.2.1",
     "fast-safe-stringify": "2.0.7",
-    "heat-sfdx-common": "0.1.11",
-    "soap": "0.32.0",
-    "typescript": "3.9.7"
+    "heat-sfdx-common": "0.1.14",
+    "soap": "0.33.0",
+    "typescript": "4.0.3"
   }
 }
