@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "prettier": "prettier \"**/*.{ts,json,md}\" --write --loglevel log",
-    "typedoc": "typedoc --out docs src && touch docs/.nojekyll && gh-pages -d docs"
+    "typedoc": "typedoc --out docs src && gh-pages -d docs"
   },
   "devDependencies": {
     "gh-pages": "3.1.0",
