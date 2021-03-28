@@ -3,10 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;custom-calls/build-manifest/get-metadata-objects&quot; | heat-sfdx-metadata</title>
+	<title>utility-calls/list-metadata | heat-sfdx-metadata</title>
 	<meta name="description" content="Documentation for heat-sfdx-metadata">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -53,13 +52,13 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../modules.html">heat-sfdx-metadata</a>
 				</li>
 				<li>
-					<a href="_custom_calls_build_manifest_get_metadata_objects_.html">&quot;custom-calls/build-manifest/get-metadata-objects&quot;</a>
+					<a href="utility_calls_list_metadata.html">utility-calls/list-metadata</a>
 				</li>
 			</ul>
-			<h1>Module &quot;custom-calls/build-manifest/get-metadata-objects&quot;</h1>
+			<h1>Module utility-calls/list-metadata</h1>
 		</div>
 	</div>
 </header>
@@ -73,7 +72,7 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_custom_calls_build_manifest_get_metadata_objects_.html#getmetadataobjects" class="tsd-kind-icon">get<wbr>Metadata<wbr>Objects</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="utility_calls_list_metadata.html#listmetadata" class="tsd-kind-icon">list<wbr>Metadata</a></li>
 							</ul>
 						</section>
 					</div>
@@ -82,38 +81,38 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="getmetadataobjects" class="tsd-anchor"></a>
-					<h3>get<wbr>Metadata<wbr>Objects</h3>
+					<a name="listmetadata" class="tsd-anchor"></a>
+					<h3>list<wbr>Metadata</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Metadata<wbr>Objects<span class="tsd-signature-symbol">(</span>authorization<span class="tsd-signature-symbol">: </span><a href="" class="tsd-signature-type">authorization</a>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Metadata<span class="tsd-signature-symbol">(</span>authorization<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">authorization</span>, config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/takahitomiyamoto/heat-sfdx-metadata/blob/bad6e95/src/custom-calls/build-manifest/get-metadata-objects.ts#L12">custom-calls/build-manifest/get-metadata-objects.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/takahitomiyamoto/heat-sfdx-metadata/blob/30d9e2e/src/utility-calls/list-metadata.ts#L64">utility-calls/list-metadata.ts:64</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<dl class="tsd-comment-tags">
 									<dt>name</dt>
-									<dd><p>getMetadataObjects</p>
+									<dd><p>listMetadata</p>
 									</dd>
 									<dt>description</dt>
-									<dd><p>call describeMetadata() and get value of result.metadataObjects</p>
+									<dd><p>retrieves property information about metadata components in your organization.</p>
 									</dd>
 								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>authorization: <a href="" class="tsd-signature-type">authorization</a></h5>
+									<h5>authorization: <span class="tsd-signature-type">authorization</span></h5>
 								</li>
 								<li>
 									<h5>config: <span class="tsd-signature-type">any</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -122,18 +121,18 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_custom_calls_build_manifest_get_metadata_objects_.html">&quot;custom-<wbr>calls/build-<wbr>manifest/get-<wbr>metadata-<wbr>objects&quot;</a>
+						<a href="utility_calls_list_metadata.html">utility-<wbr>calls/list-<wbr>metadata</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_custom_calls_build_manifest_get_metadata_objects_.html#getmetadataobjects" class="tsd-kind-icon">get<wbr>Metadata<wbr>Objects</a>
+						<a href="utility_calls_list_metadata.html#listmetadata" class="tsd-kind-icon">list<wbr>Metadata</a>
 					</li>
 				</ul>
 			</nav>
@@ -145,10 +144,8 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
 			</ul>
 		</div>
 	</div>

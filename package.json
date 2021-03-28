@@ -1,6 +1,6 @@
 {
   "name": "heat-sfdx-metadata",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "license": "MIT",
   "author": "takahitomiyamoto",
   "keywords": [
@@ -27,11 +27,11 @@
   },
   "devDependencies": {
     "prettier": "2.2.1",
-    "typedoc": "0.20.30"
+    "typedoc": "0.20.34"
   },
   "dependencies": {
     "@types/bluebird": "3.5.33",
-    "@types/node": "14.14.31",
+    "@types/node": "14.14.37",
     "@types/request": "2.48.5",
     "@types/sax": "1.2.1",
     "fast-safe-stringify": "2.0.7",
