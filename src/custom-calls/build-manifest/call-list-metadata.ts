@@ -47,9 +47,13 @@ const _storeMetadataTypeMembers = (
   const listMetadataString = readFileSyncUtf8(path);
   const listMetadataObj = JSON.parse(listMetadataString);
 
-  const fullNames = listMetadataObj.result.map(
-    (member: any) => member.fullName
-  );
+  const fullNames = listMetadataObj.result.map((member: any) => {
+    console.log('');
+    console.log('-------------------------');
+    console.log('call-list-metadata.ts');
+    console.log(JSON.stringify(member));
+    return member.fullName;
+  });
   fullNames.sort();
 
   const name = [];

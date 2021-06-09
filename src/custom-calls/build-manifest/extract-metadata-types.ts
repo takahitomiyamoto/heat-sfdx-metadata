@@ -9,6 +9,10 @@ import { METADATA_TYPE2FOLDER_MAP } from '../../common';
  * @name _getXmlName
  */
 const _getXmlName = (object: any, folder: boolean) => {
+  console.log('');
+  console.log('-------------------------');
+  console.log('extract-metadata-types.ts');
+  console.log(JSON.stringify(object));
   if (folder) {
     return METADATA_TYPE2FOLDER_MAP[object.xmlName];
   } else {
