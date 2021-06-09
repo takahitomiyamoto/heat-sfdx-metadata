@@ -52,6 +52,10 @@ const _storeMetadataTypeMembers = (
     return config.manageableStates.includes(member.manageableState);
   });
 
+  if (0 === listMetadataObjResult.length) {
+    return;
+  }
+
   const fullNames = listMetadataObjResult.map((member: any) => {
     console.log('');
     console.log('-------------------------');
@@ -59,6 +63,7 @@ const _storeMetadataTypeMembers = (
     console.log(JSON.stringify(member));
     return member.fullName;
   });
+
   fullNames.sort();
 
   const name = [];
