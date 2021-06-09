@@ -26,17 +26,17 @@
     "typedoc": "typedoc --out docs src && touch docs/.nojekyll"
   },
   "devDependencies": {
-    "prettier": "2.2.1",
-    "typedoc": "0.20.34"
+    "prettier": "2.3.1",
+    "typedoc": "0.20.36"
   },
   "dependencies": {
-    "@types/bluebird": "3.5.33",
-    "@types/node": "14.14.37",
+    "@types/bluebird": "3.5.35",
+    "@types/node": "15.12.2",
     "@types/request": "2.48.5",
     "@types/sax": "1.2.1",
     "fast-safe-stringify": "2.0.7",
-    "heat-sfdx-common": "0.1.14",
-    "soap": "0.36.0",
-    "typescript": "4.2.3"
+    "heat-sfdx-common": "0.1.16",
+    "soap": "0.39.0",
+    "typescript": "4.3.2"
   }
 }
