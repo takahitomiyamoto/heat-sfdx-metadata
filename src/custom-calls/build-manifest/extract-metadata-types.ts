@@ -20,10 +20,6 @@ const _getXmlName = (object: any, folder: boolean) => {
  * @name _getChildXmlNames
  */
 const _getChildXmlNames = (object: any, folder: boolean) => {
-  console.log('');
-  console.log('-------------------------');
-  console.log('extract-metadata-types.ts');
-  console.log(JSON.stringify(object.childXmlNames));
   if (!object.childXmlNames) {
     return [];
   }
@@ -46,18 +42,20 @@ const _extractMetadataTypes = (
   );
 
   // xmlName
-  const metadataTypes = metadataTypesObj.map((object: any) =>
+  let metadataTypes = metadataTypesObj.map((object: any) =>
     _getXmlName(object, folder)
   );
   metadataTypes.sort();
 
   // childXmlNames
+  let childMetadataTypes: any[] = [];
   if (config.child) {
-    const childMetadataTypes: any[] = [];
     metadataTypesObj.forEach((object: any) => {
-      childMetadataTypes.concat(_getChildXmlNames(object, folder));
+      childMetadataTypes = childMetadataTypes.concat(
+        _getChildXmlNames(object, folder)
+      );
     });
-    metadataTypes.concat(childMetadataTypes);
+    metadataTypes = metadataTypes.concat(childMetadataTypes);
     metadataTypes.sort();
   }
 
