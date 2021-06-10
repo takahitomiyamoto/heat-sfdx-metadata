@@ -320,10 +320,10 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-heat-sfdx-common@0.1.16:
-  version "0.1.16"
-  resolved "https://registry.yarnpkg.com/heat-sfdx-common/-/heat-sfdx-common-0.1.16.tgz#cf70ef761265b3f63c2987c07e4df2c0d58a0280"
-  integrity sha512-iPWsY11+Z0kL5YE4IEFLr5Qr/TmKTa4yNdcyXBPA/Z1yySPoDvqj9OTFzLYscPYDqn7Ms7BQxQDzLcs7Cc1Dzg==
+heat-sfdx-common@0.1.18:
+  version "0.1.18"
+  resolved "https://registry.yarnpkg.com/heat-sfdx-common/-/heat-sfdx-common-0.1.18.tgz#9909e25210113e1ef5b26fbf480a9d818c0e0b7b"
+  integrity sha512-IzwzSfBSJ+IGHJcdhqm/zpDhnlelm3PPbCDOCwIH4Y8248cwbbALF9oH/Ao4Uz2iJ6GtUqJjvG8iiNjaZj2q7w==
   dependencies:
     "@types/jsonwebtoken" "8.5.1"
     "@types/node" "15.12.2"
