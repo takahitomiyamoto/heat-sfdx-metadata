@@ -4,6 +4,7 @@
  */
 import {
   authorization,
+  existsSync,
   readFileSyncUtf8,
   writeFileSyncUtf8
 } from 'heat-sfdx-common';
@@ -13,17 +14,18 @@ import { METADATA_TYPE2FOLDER_MAP } from '../../common';
 /**
  * @name _getMetadataTypeMembers
  */
-const _getMetadataTypeMembers = (path: string) => {
-  try {
-    const resultString = readFileSyncUtf8(path);
-    const result = JSON.parse(resultString);
-    const members = result.members;
-    members.sort();
-    return members;
-  } catch (err) {
-    console.log(`----- NO FILE: ${path}`);
+const _getMetadataTypeMembers = (config: any, path: string) => {
+  if (!existsSync(path)) {
+    if (config.verbose) {
+      console.log(`----- NO FILE: ${path}`);
+    }
     return [''];
   }
+  const resultString = readFileSyncUtf8(path);
+  const result = JSON.parse(resultString);
+  const members = result.members;
+  members.sort();
+  return members;
 };
 
 /**
@@ -75,7 +77,10 @@ const _storeMetadataTypeMembers = (
     metadataType
   );
   writeFileSyncUtf8(output, JSON.stringify(metadataTypeMembers));
-  console.log(output);
+
+  if (config.verbose) {
+    console.log(output);
+  }
 };
 
 /**
@@ -98,12 +103,18 @@ async function _listMetadata(
     const noDataMetadataType = folder
       ? `${metadataType} - ${folder}`
       : metadataType;
-    console.log(`----- NO DATA: ${noDataMetadataType}`);
+
+    if (config.verbose) {
+      console.log(`----- NO DATA: ${noDataMetadataType}`);
+    }
   } else {
     const output = _getOutput(folder, config.prefix.listMetadata, metadataType);
 
     writeFileSyncUtf8(output, listMetadataResult);
-    console.log(output);
+
+    if (config.verbose) {
+      console.log(output);
+    }
 
     _storeMetadataTypeMembers(config, output, metadataType, folder);
   }
@@ -124,6 +135,7 @@ async function _repeatListMetadata(
     let folders: string[] = [];
     if (inFolder) {
       folders = _getMetadataTypeMembers(
+        config,
         `${config.prefix.metadataTypeMembers}.${METADATA_TYPE2FOLDER_MAP[metadataType]}.json`
       );
     } else {
