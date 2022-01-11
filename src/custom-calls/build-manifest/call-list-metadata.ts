@@ -127,8 +127,8 @@ async function _listMetadata(
     const output = _getOutput(folder, config.prefix.listMetadata, metadataType);
 
     const excludeKey = _config.exclude ? Object.keys(_config.exclude) : [];
-    const metadataTypeMembersExclude = _config.exclude[_config.metadataType];
-    if (excludeKey?.includes(metadataType)) {
+    const metadataTypeMembersExclude = _config.exclude[metadataType];
+    if (excludeKey.includes(metadataType)) {
       const resultArray: any = JSON.parse(listMetadataResult)?.result;
       const listMetadataResultArray = resultArray.filter((r: any) => {
         return !metadataTypeMembersExclude.includes(r.fullName);
