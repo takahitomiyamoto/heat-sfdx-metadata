@@ -17,7 +17,7 @@ import { METADATA_TYPE2FOLDER_MAP } from '../../common';
 const _getMetadataTypeMembers = (config: any, path: string) => {
   if (!existsSync(path)) {
     if (config.verbose) {
-      console.log(`----- NO FILE: ${path}`);
+      console.info(`----- NO FILE: ${path}`);
     }
     return [''];
   }
@@ -79,8 +79,19 @@ const _storeMetadataTypeMembers = (
   writeFileSyncUtf8(output, JSON.stringify(metadataTypeMembers));
 
   if (config.verbose) {
-    console.log(output);
+    console.info(output);
   }
+};
+
+const _listMetadataInclude = (authorization: authorization, config: any) => {
+  const metadataTypeMembers = config.include[config.metadataType];
+  const result = metadataTypeMembers.map((m: string) => {
+    return {
+      fullName: m,
+      type: config.metadataType
+    };
+  });
+  return JSON.stringify({ result: result });
 };
 
 /**
@@ -95,9 +106,14 @@ async function _listMetadata(
   const _config = {
     metadataType: metadataType,
     folder: folder,
-    asOfVersion: config.asOfVersion
+    asOfVersion: config.asOfVersion,
+    include: config.include,
+    exclude: config.exclude
   };
-  const listMetadataResult = await listMetadata(authorization, _config);
+  const includeKey = _config.include ? Object.keys(_config.include) : [];
+  let listMetadataResult = includeKey?.includes(metadataType)
+    ? _listMetadataInclude(authorization, _config)
+    : await listMetadata(authorization, _config);
 
   if (null === JSON.parse(listMetadataResult)) {
     const noDataMetadataType = folder
@@ -105,15 +121,27 @@ async function _listMetadata(
       : metadataType;
 
     if (config.verbose) {
-      console.log(`----- NO DATA: ${noDataMetadataType}`);
+      console.info(`----- NO DATA: ${noDataMetadataType}`);
     }
   } else {
     const output = _getOutput(folder, config.prefix.listMetadata, metadataType);
 
+    const excludeKey = _config.exclude ? Object.keys(_config.exclude) : [];
+    const metadataTypeMembersExclude = _config.exclude[_config.metadataType];
+    if (excludeKey?.includes(metadataType)) {
+      const resultArray: any = JSON.parse(listMetadataResult)?.result;
+      const listMetadataResultArray = resultArray.filter((r: any) => {
+        return !metadataTypeMembersExclude.includes(r.fullName);
+      });
+      listMetadataResult = JSON.stringify({
+        result: listMetadataResultArray
+      });
+    }
+
     writeFileSyncUtf8(output, listMetadataResult);
 
     if (config.verbose) {
-      console.log(output);
+      console.info(output);
     }
 
     _storeMetadataTypeMembers(config, output, metadataType, folder);
