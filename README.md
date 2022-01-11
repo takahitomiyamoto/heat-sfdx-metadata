@@ -1,7 +1,5 @@
 ![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 [![npm version](https://badge.fury.io/js/heat-sfdx-metadata.svg)](https://badge.fury.io/js/heat-sfdx-metadata)
-[![dependencies status](https://david-dm.org/takahitomiyamoto/heat-sfdx-metadata.svg)](https://david-dm.org/takahitomiyamoto/heat-sfdx-metadata)
-[![devDependency status](https://david-dm.org/takahitomiyamoto/heat-sfdx-metadata/dev-status.svg)](https://david-dm.org/takahitomiyamoto/heat-sfdx-metadata#info=devDependencies)
 [![Code Climate](https://codeclimate.com/github/takahitomiyamoto/heat-sfdx-metadata.svg)](https://codeclimate.com/github/takahitomiyamoto/heat-sfdx-metadata)
 
 # heat-sfdx-metadata
